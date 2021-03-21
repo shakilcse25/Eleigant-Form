@@ -47,7 +47,16 @@ class Elegant_Form_Admin {
 	 * @access   private
 	 * @var      string    $callback    callback of this plugin.
 	 */
-	private $callback;
+	private $callbacks;
+
+	/**
+	 * settings_api of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $settings_api    settings_api of this plugin.
+	 */
+	private $settings_api;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -57,13 +66,26 @@ class Elegant_Form_Admin {
 	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->dbActivated();
 		$this->load_dependencies();
-		$this->callback = new Elegant_Form_Admin_Callback();
+		$this->callbacks = new Elegant_Form_Admin_Callback();
+		$this->settings_api = new SettingsApi;
 
+		$this->setSettings();
+        $this->setSections();
+        $this->setFields();
+		$this->settings_api->register();
 	}
+
+	public function dbActivated(){
+        if(get_option('elegant_form')){
+            return;
+        }
+        $default = array();
+        update_option( 'elegant_form', $default );
+    }
 
 
 
@@ -90,6 +112,7 @@ class Elegant_Form_Admin {
 		 * core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/callbacks/class-elegant-form-admin-callback.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/api/class-elegant-form-settings-api.php';
 
 	}
 
@@ -142,24 +165,94 @@ class Elegant_Form_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/elegant-form-admin.js', array( 'myscript' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/elegant-form-admin.js', array('jquery'), $this->version, false );
 
 		$valid_page = array('manage-elegant-form','create-elegant-form');
 		$page = (isset($_GET['page'])) ? $_GET['page'] : '';
 
 		if(in_array($page,$valid_page)){
-			wp_enqueue_script( 'elegant-form-jquery-support', plugin_dir_url( __FILE__ ) . 'js/jquery.min.js', array( 'jquery' ), $this->version, false );
-			wp_enqueue_script( 'elegant-form-bootstrap-js-support', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'bootstrap-js' ), $this->version, false );
+			wp_enqueue_script( 'elegant-form-bootstrap-js-support', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array('jquery'), $this->version, false );
 		}
 
 	}
 
 	public function admin_main_menu() {
-		add_menu_page( 'Manage Elegant Form', 'Elegant Form', 'manage_options', 'manage-elegant-form', array($this->callback,'pageRender'), 'dashicons-welcome-widgets-menus', 90 );
+		add_menu_page( 'Manage Elegant Form', 'Elegant Form', 'manage_options', 'manage-elegant-form', array($this->callbacks,'pageRender'), 'dashicons-welcome-widgets-menus', 90 );
 
-		add_submenu_page( 'manage-elegant-form', 'Manage Elegant Form', 'Manage Elegant Form', 'manage_options', 'manage-elegant-form',array($this->callback,'pageRender') );
+		add_submenu_page( 'manage-elegant-form', 'Manage Elegant Form', 'Manage Elegant Form', 'manage_options', 'manage-elegant-form',array($this->callbacks,'pageRender') );
 
-		add_submenu_page( 'manage-elegant-form', 'Create Form', 'Create Form', 'manage_options', 'create-elegant-form',array($this->callback,'pageRender') );
+		add_submenu_page( 'manage-elegant-form', 'Create Form', 'Create Form', 'manage_options', 'create-elegant-form',array($this->callbacks,'pageRender') );
 	}
+
+
+
+	public function setSettings(){
+        $args = array(
+			array(
+				'option_group' => 'elegant_form_settings',
+				'option_name' => 'elegant_form',
+				'callback' => array( $this->callbacks, 'efSanitize' )
+			)
+		);
+
+        $this->settings_api->setSettings($args);
+    }
+
+    public function setSections(){
+        $args = array(
+            array(
+                'id' => 'elegant_form_section',
+                'title' => 'Elegant Form Creator',
+                'callback' => array($this->callbacks,'efSectionManager'),
+                'page' => 'elegant_form'
+            )
+        );
+        $this->settings_api->setSections($args);
+    }
+
+    public function setFields(){
+
+        $args = array(
+            array(
+                'id' => 'form_name',
+                'title' => 'Form Name',
+                'callback' => array( $this->callbacks, 'textField' ),
+                'page' => 'elegant_form',
+                'section' => 'elegant_form_section',
+                'args' => array(
+                    'option_name' => 'elegant_form',
+                    'label_for' => 'form_name',
+                    'placeholder' => 'Form Name'
+                )
+				),
+				array(
+				'id' => 'field_name',
+				'title' => 'Field Name',
+				'callback' => array( $this->callbacks, 'textField' ),
+				'page' => 'elegant_form',
+				'section' => 'elegant_form_section',
+				'args' => array(
+					'option_name' => 'elegant_form',
+					'label_for' => 'field_name',
+					'placeholder' => 'Field Name'
+				)
+				),
+				array(
+					'id' => 'field_type',
+					'title' => 'Field Type',
+					'callback' => array( $this->callbacks, 'textField' ),
+					'page' => 'elegant_form',
+					'section' => 'elegant_form_section',
+					'args' => array(
+						'option_name' => 'elegant_form',
+						'label_for' => 'field_type',
+						'placeholder' => 'Field Type'
+					)
+				)
+				
+        );
+
+        $this->settings_api->setFields($args);
+    }
 
 }

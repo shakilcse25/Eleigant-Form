@@ -12,4 +12,48 @@
  * @subpackage Elegant_Form/admin/partials
  */
 ?>
-<h1 class="text-center">create form</h1>
+<div class="card my-card">
+    <div class="card-header">
+        <div class="card-header-inner">
+            <span></span>
+            <button class="btn btn-info add" type="button" id="add" >Add a Field</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="row g-3 needs-validation" id="create-form" method="post" action="options.php" novalidate>
+            <?php 
+                settings_fields( 'elegant_form_settings' );
+                do_settings_sections( 'elegant_form' );
+                echo '<div class="form_group"></div>';
+                submit_button();
+            ?>
+            <!-- <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Form Name</label>
+                <input type="text" class="form-control" id="validationCustom01" required>
+                <div class="valid-feedback">
+                    Valid!
+                </div>
+            </div> -->
+
+
+        </form>
+    </div>
+</div>
+
+<script>
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	var forms = document.querySelectorAll('.needs-validation');
+
+	// Loop over them and prevent submission
+	Array.prototype.slice.call(forms)
+	  .forEach(function (form) {
+		form.addEventListener('submit', function (event) {
+		  if (!form.checkValidity()) {
+			event.preventDefault()
+			event.stopPropagation()
+		  }
+  
+		  form.classList.add('was-validated')
+		}, false)
+	})
+</script>

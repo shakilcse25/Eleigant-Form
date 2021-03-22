@@ -225,30 +225,31 @@ class Elegant_Form_Admin {
                     'placeholder' => 'Form Name'
                 )
 				),
-				array(
-				'id' => 'field_name',
-				'title' => 'Field Name',
-				'callback' => array( $this->callbacks, 'textField' ),
-				'page' => 'elegant_form',
-				'section' => 'elegant_form_section',
-				'args' => array(
-					'option_name' => 'elegant_form',
-					'label_for' => 'field_name',
-					'placeholder' => 'Field Name'
-				)
-				),
-				array(
-					'id' => 'field_type',
-					'title' => 'Field Type',
-					'callback' => array( $this->callbacks, 'textField' ),
-					'page' => 'elegant_form',
-					'section' => 'elegant_form_section',
-					'args' => array(
-						'option_name' => 'elegant_form',
-						'label_for' => 'field_type',
-						'placeholder' => 'Field Type'
-					)
-				)
+				// array(
+				// 'id' => 'field_name',
+				// 'title' => 'Field Name',
+				// 'callback' => array( $this->callbacks, 'textField' ),
+				// 'page' => 'elegant_form',
+				// 'section' => 'elegant_form_section',
+				// 'args' => array(
+				// 	'option_name' => 'elegant_form',
+				// 	'label_for' => 'field_name',
+				// 	'placeholder' => 'Field Name'
+				// )
+				// ),
+				// array(
+				// 	'id' => 'field_type',
+				// 	'title' => 'Field Type',
+				// 	'callback' => array( $this->callbacks, 'dropDownField' ),
+				// 	'page' => 'elegant_form',
+				// 	'section' => 'elegant_form_section',
+				// 	'args' => array(
+				// 		'option_name' => 'elegant_form',
+				// 		'label_for' => 'field_type',
+				// 		'class' => 'field_type',
+				// 		'placeholder' => 'Field Type'
+				// 	)
+				// )
 				
         );
 

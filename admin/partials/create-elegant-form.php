@@ -13,6 +13,7 @@
  */
 ?>
 <div class="card my-card">
+    <?php settings_errors(); ?>
     <div class="card-header">
         <div class="card-header-inner">
             <span></span>

@@ -40,7 +40,7 @@
                 <tr>
                     <th scope="row"><?php echo $key; ?></th>
                     <td><?php echo $innerkey; ?></td>
-                    <td> [<?php echo $innervalue['form-id']; ?>] </td>
+                    <td> <code>[elegant-form id=<?php echo $innervalue['form-id']; ?>] </code></td>
                     <td>
                         <a href="" class="btn btn-info"> View and Update </a>
                     </td>

@@ -71,12 +71,33 @@ class Elegant_Form_Admin {
 		$this->dbActivated();
 		$this->load_dependencies();
 		$this->callbacks = new Elegant_Form_Admin_Callback();
-		$this->settings_api = new SettingsApi;
+		$this->settings_api = new SettingsApi();
 
 		$this->setSettings();
         $this->setSections();
         $this->setFields();
 		$this->settings_api->register();
+	}
+
+	public function elegant_form_shortcodes_init(){
+		add_shortcode('elegant-form', array($this,'elegant_form_shortcode'));
+	}
+
+	public function elegant_form_shortcode($atts=[]){
+		$params = shortcode_atts(
+			array(
+				'id' => '12345',
+			), $atts
+		);
+
+		$file = ELEGANT_FORM_DIR_PATH.'admin/partials/create-plugin-elegant-form.php';
+        ob_start();
+        if (file_exists($file)) {
+            include_once($file);
+        }
+        $template = ob_get_contents();
+        ob_end_clean();
+        echo $template;
 	}
 
 	public function dbActivated(){

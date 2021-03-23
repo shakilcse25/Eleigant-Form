@@ -1,5 +1,5 @@
-(function( $ ) {
-	'use strict';
+var $ = jQuery;
+$(document).ready(function() {
 
 	/**
 	 * All of the code for your public-facing JavaScript source
@@ -29,4 +29,22 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-})( jQuery );
+	$('#elegant-form').on('submit',function(e){
+		e.preventDefault();
+		var url = $(this).attr('data-url');
+		var allcheck = [];
+		$('#elegant-form .input-text-checkbox').each(function() {
+			allcheck.push($(this).attr('name'));
+		});
+		var formData = $(this).serializeArray().reduce(function(obj, item) {
+			obj[item.name] = item.value;
+			return obj;
+		}, {});
+
+		$.post(url, formData , function(response){
+			console.log(response);
+		})
+
+	});
+
+ });

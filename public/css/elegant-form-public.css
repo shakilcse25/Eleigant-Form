@@ -2,3 +2,49 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.elegant-form-div{
+    padding: 30px 20px !important;
+    border-radius: 4px !important;
+    overflow: hidden;
+}
+.elegant-form-div input, .elegant-form-div select,.elegant-form-div button, .elegant-form-div textarea{
+    border: 0 !important;
+    outline: 0 !important;
+    font-size: 16px !important;
+    border-radius: 320px !important;
+    padding: 16px !important;
+    background-color: #EBECF0 !important;
+    text-shadow: 1px 1px 0 #FFF !important;
+}
+.elegant-form-div .input-text-field, .elegant-form-div .input-text-select , .elegant-form-div .input-text-checkbox, .elegant-form-div .input-text-area{
+    margin-right: 8px !important;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF !important;
+    width: 100%;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease-in-out !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+}
+
+.elegant-form-div button {
+    display: block;
+    width: 110px;
+    color: #AE1100;
+    font-weight: bold;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #EBECF0 !important;
+    float: right;
+}
+.elegant-form-div button:hover , .elegant-form-div button:focus{
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    text-decoration: none;
+}
+.elegant-form-div textarea{
+    border-radius: 8px !important;
+}
+
+

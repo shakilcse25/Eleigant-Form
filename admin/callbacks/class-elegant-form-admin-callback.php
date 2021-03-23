@@ -27,11 +27,12 @@ class Elegant_Form_Admin_Callback{
     }
 
     public function efSanitize($input){
-        
         $output = get_option( 'elegant_form' );
         $combine_array = array_combine($input['field_name'],$input['field_type']);
         $combine_array['form-id'] = md5(uniqid(rand(), true));
-        $options = $input['options'];
+        $combine_array['bg'] = $input['bg'];
+        $combine_array['text_color'] = $input['text_color'];
+        $options = isset($input['options']) ? $input['options'] : array();
 
         foreach ($combine_array as $key => $value) {
             if($value == 'dropdown' && array_key_exists($key,$options)){
@@ -39,7 +40,6 @@ class Elegant_Form_Admin_Callback{
                 $combine_array[$key] = $options[$key];
             }
         }
-
         $output[$input['form_name']] =  $combine_array;
         return $output;
     }
@@ -48,13 +48,25 @@ class Elegant_Form_Admin_Callback{
         $name = $args['label_for'];
         $option_name = $args['option_name'];
         $value = '';
+        $type = 'text';
 		$isArray = false;
 		if($name == 'field_name' || $name == 'field_type'){
 			$isArray = true;
 		}
         $arr = ($isArray) ? '[]' : '';
+        
+        switch ($name) {
+            case 'bg':
+                $value = '#EBECF0';
+                $type = 'color';
+                break;
+            case 'text_color':
+                $value = '#000000';
+                $type = 'color';
+                break;
+        }
 
-        echo '<input type="text" class="form-control input-field" id="'.$name.'" name="'.$option_name.'['.$name.']'.$arr.'" value="'.$value.'" placeholder="'. $args['placeholder'] .'" required>';
+        echo '<input type="'.$type.'" class="form-control input-field" id="'.$name.'" name="'.$option_name.'['.$name.']'.$arr.'" value="'.$value.'" placeholder="'. $args['placeholder'] .'" required>';
     }
 
     // public function checkboxField($args){

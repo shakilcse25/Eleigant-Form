@@ -101,11 +101,16 @@ class Elegant_Form_Admin {
 	}
 
 	public function dbActivated(){
-        if(get_option('elegant_form')){
-            return;
+		$default = array();
+        if(!get_option('elegant_form')){
+            update_option( 'elegant_form', $default );
         }
-        $default = array();
-        update_option( 'elegant_form', $default );
+
+		if(!get_option('elegant_form_submit')){
+			update_option( 'elegant_form_submit', $default );
+		}
+
+		return;
     }
 
 
@@ -235,46 +240,73 @@ class Elegant_Form_Admin {
 
         $args = array(
             array(
-                'id' => 'form_name',
-                'title' => 'Form Name',
-                'callback' => array( $this->callbacks, 'textField' ),
-                'page' => 'elegant_form',
-                'section' => 'elegant_form_section',
-                'args' => array(
-                    'option_name' => 'elegant_form',
-                    'label_for' => 'form_name',
-                    'placeholder' => 'Form Name'
-                )
+					'id' => 'form_name',
+					'title' => 'Form Name',
+					'callback' => array( $this->callbacks, 'textField' ),
+					'page' => 'elegant_form',
+					'section' => 'elegant_form_section',
+					'args' => array(
+						'option_name' => 'elegant_form',
+						'label_for' => 'form_name',
+						'placeholder' => 'Form Name'
+					)
 				),
-				// array(
-				// 'id' => 'field_name',
-				// 'title' => 'Field Name',
-				// 'callback' => array( $this->callbacks, 'textField' ),
-				// 'page' => 'elegant_form',
-				// 'section' => 'elegant_form_section',
-				// 'args' => array(
-				// 	'option_name' => 'elegant_form',
-				// 	'label_for' => 'field_name',
-				// 	'placeholder' => 'Field Name'
-				// )
-				// ),
-				// array(
-				// 	'id' => 'field_type',
-				// 	'title' => 'Field Type',
-				// 	'callback' => array( $this->callbacks, 'dropDownField' ),
-				// 	'page' => 'elegant_form',
-				// 	'section' => 'elegant_form_section',
-				// 	'args' => array(
-				// 		'option_name' => 'elegant_form',
-				// 		'label_for' => 'field_type',
-				// 		'class' => 'field_type',
-				// 		'placeholder' => 'Field Type'
-				// 	)
-				// )
+				array(
+					'id' => 'bg',
+					'title' => 'Form Background Color',
+					'callback' => array( $this->callbacks, 'textField' ),
+					'page' => 'elegant_form',
+					'section' => 'elegant_form_section',
+					'args' => array(
+						'option_name' => 'elegant_form',
+						'label_for' => 'bg',
+						'placeholder' => 'Form Background Color'
+					)
+				),
+				array(
+					'id' => 'text_color',
+					'title' => 'Form Text Color',
+					'callback' => array( $this->callbacks, 'textField' ),
+					'page' => 'elegant_form',
+					'section' => 'elegant_form_section',
+					'args' => array(
+						'option_name' => 'elegant_form',
+						'label_for' => 'text_color',
+						'placeholder' => 'Form Text Color'
+					)
+				),
+
 				
         );
 
         $this->settings_api->setFields($args);
     }
+
+	public function elegant_form_submit(){
+		if (! DOING_AJAX || ! check_ajax_referer('elegant-and-form-nonce', 'nonce') ) {
+			return $this->return_json('error');
+		}
+		
+		$elegant_form_submit = get_option('elegant_form_submit');
+		$elegant_form_submit[] = [$_POST];
+		$res = update_option( 'elegant_form_submit', $elegant_form_submit );
+
+		if($res){
+			return $this->return_json('success');
+		}
+
+		return $this->return_json('error');
+
+	}
+
+	public function return_json($status)
+	{
+		$return = array(
+			'status' => $status
+		);
+		wp_send_json($return);
+
+		wp_die();
+	}
 
 }

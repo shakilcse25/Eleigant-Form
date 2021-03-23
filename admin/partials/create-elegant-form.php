@@ -28,15 +28,6 @@
                 echo '<div class="form_group"></div>';
                 submit_button();
             ?>
-            <!-- <div class="col-md-6">
-                <label for="validationCustom01" class="form-label">Form Name</label>
-                <input type="text" class="form-control" id="validationCustom01" required>
-                <div class="valid-feedback">
-                    Valid!
-                </div>
-            </div> -->
-
-
         </form>
     </div>
 </div>

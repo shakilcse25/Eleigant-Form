@@ -2,80 +2,102 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
-select{
+
+select {
     max-width: 100% !important;
 }
-.my-card{
+
+.my-card {
     min-width: 70% !important;
     margin: 0 auto;
     margin-top: 20px;
 }
-#invalidCheck{
+
+#invalidCheck {
     margin-top: 10px;
 }
-#form_group select{
+
+#form_group select {
     padding: 2px !important;
 }
-.inner-form-group{
+
+.inner-form-group {
     margin: 10px 0 !important;
 }
-.card-header-inner{
+
+.card-header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.row > *{
+
+.row>* {
     padding-left: 0 !important;
 }
 
-.card-table{
+.card-table {
     min-width: 90% !important;
     margin: 0 auto;
     margin-top: 20px;
 }
-.dynamic_option{
+
+.dynamic_option {
     margin: 15px 0;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
 
-.add_option{
+.add_option {
     display: flex;
     margin-left: 10px;
     align-items: baseline;
     flex-direction: column;
     flex-wrap: wrap-reverse;
 }
-.add_option button{
-    margin-left: 5px;;
+
+.add_option button {
+    margin-left: 5px;
+    ;
     width: 160px;
 }
-.dynamic_select{
+
+.dynamic_select {
     min-width: 180px;
 }
-.add_option button{
+
+.add_option button {
     margin-top: 7px;
 }
-#create-form{
+
+#create-form {
     width: 100%;
     margin: 0 auto;
 }
 
-.remove-input{
+.remove-input {
     position: absolute;
     top: 0;
     right: 0;
     border-radius: 2px !important;
 }
-.inner-form-group{
+
+.inner-form-group {
     position: relative;
 }
-.option-list{
+
+.option-list {
     display: flex !important;
     align-items: center;
     justify-content: space-evenly;
 }
-.option-list button{
-    margin-left: 6px;;
+
+.option-list button {
+    margin-left: 6px;
+    ;
+}
+
+.my-card .addBtn {
+    text-align: right;
+    margin: 30px 0;
 }

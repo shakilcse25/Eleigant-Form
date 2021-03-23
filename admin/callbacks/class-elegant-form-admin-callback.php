@@ -13,7 +13,17 @@
 class Elegant_Form_Admin_Callback{
 
     public function pageRender(){
-		$file = ELEGANT_FORM_DIR_PATH.'admin/partials/'.((isset($_GET['page'])) ? $_GET['page'].'.php' : 'no-file.php');
+        $id = (isset($_GET['id'])) ? $_GET['id'] : '';
+        $page = (isset($_GET['page'])) ? $_GET['page'] : '';
+
+        $file = '';
+        if(!empty($page)){
+            if(empty($id)){
+                $file = ELEGANT_FORM_DIR_PATH.'admin/partials/'.$page.'.php';
+            }else{
+                $file = ELEGANT_FORM_DIR_PATH.'admin/partials/'.$page.'-id.php';
+            }
+        }
         ob_start();
 		if(file_exists($file)){
 			include_once($file);

@@ -109,8 +109,6 @@ class Elegant_Form_Admin {
 		if(!get_option('elegant_form_submit')){
 			update_option( 'elegant_form_submit', $default );
 		}
-
-		return;
     }
 
 
@@ -207,7 +205,7 @@ class Elegant_Form_Admin {
 
 		add_submenu_page( 'manage-elegant-form', 'Manage Elegant Form', 'Manage Elegant Form', 'manage_options', 'manage-elegant-form',array($this->callbacks,'pageRender') );
 
-		add_submenu_page( 'manage-elegant-form', 'Create Form', 'Create Form', 'manage_options', 'create-elegant-form',array($this->callbacks,'pageRender') );
+		add_submenu_page( 'manage-elegant-form', 'Create New Form', 'Create New Form', 'manage_options', 'create-elegant-form',array($this->callbacks,'pageRender') );
 	}
 
 
@@ -288,7 +286,8 @@ class Elegant_Form_Admin {
 		}
 		
 		$elegant_form_submit = get_option('elegant_form_submit');
-		$elegant_form_submit[] = [$_POST];
+		$elegant_form_submit[] = (object)$_POST;
+
 		$res = update_option( 'elegant_form_submit', $elegant_form_submit );
 
 		if($res){

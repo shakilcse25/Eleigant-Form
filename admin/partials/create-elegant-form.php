@@ -14,18 +14,13 @@
 ?>
 <div class="card my-card">
     <?php settings_errors(); ?>
-    <div class="card-header">
-        <div class="card-header-inner">
-            <span></span>
-            <button class="btn btn-info add" type="button" id="add" >Add a Field</button>
-        </div>
-    </div>
     <div class="card-body">
-        <form class="row g-3 needs-validation" id="create-form" method="post" action="options.php" novalidate>
+        <form class="g-3 needs-validation" id="create-form" method="post" action="options.php" novalidate>
             <?php 
                 settings_fields( 'elegant_form_settings' );
                 do_settings_sections( 'elegant_form' );
                 echo '<div class="form_group"></div>';
+                echo '<p class="addBtn"><button class="btn btn-info add" type="button" id="add" >Add a Field</button></p>';
                 submit_button();
             ?>
         </form>

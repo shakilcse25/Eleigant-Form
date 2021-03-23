@@ -42,7 +42,7 @@
                     <td><?php echo $innerkey; ?></td>
                     <td> <code>[elegant-form id=<?php echo $innervalue['form-id']; ?>] </code></td>
                     <td>
-                        <a href="" class="btn btn-info"> View and Update </a>
+                        <a href="<?php echo admin_url().'admin.php?page=manage-elegant-form&id='.$innervalue['form-id']; ?>" class="btn btn-info"> User Data </a>
                     </td>
                 </tr>
             <?php }  ?>

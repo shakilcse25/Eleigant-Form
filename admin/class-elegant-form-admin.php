@@ -90,7 +90,7 @@ class Elegant_Form_Admin {
 			), $atts
 		);
 
-		$file = ELEGANT_FORM_DIR_PATH.'admin/partials/create-plugin-elegant-form.php';
+		$file = ELEGANT_FORM_DIR_PATH.'public/partials/create-plugin-elegant-form.php';
         ob_start();
         if (file_exists($file)) {
             include_once($file);
@@ -283,9 +283,22 @@ class Elegant_Form_Admin {
     }
 
 	public function elegant_form_submit(){
+		return wp_send_json( $_POST );
+
+
 		if (! DOING_AJAX || ! check_ajax_referer('elegant-and-form-nonce', 'nonce') ) {
 			return $this->return_json('error');
 		}
+
+		// if (!empty($_FILES)) {
+		// 	$tmpFile = $_FILES['file']['tmp_name'];
+		// 	$filename = $uploadDir.'/'.time().'-'. $_FILES['file']['name'];
+		// 	move_uploaded_file($tmpFile, $filename);
+		// }
+
+
+		
+
 		
 		$elegant_form_submit = get_option('elegant_form_submit');
 		$elegant_form_submit[] = (object)$_POST;

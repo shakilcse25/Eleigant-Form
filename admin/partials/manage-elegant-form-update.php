@@ -48,14 +48,18 @@
 
                   if(is_array($value)){
                     $option = true;
-                    foreach ($value as $option_value) {
-                      $all_option .= '<li class="list-group-item option-list"><input type="text" class="form-control" name="elegant_form[options][][]" value="'. $option_value .'" readonly=""><button type="button" class="btn-close option-close" aria-label="Close"></button></li>';
+                    foreach ($value as $optionkey => $option_value) {
+                      if (!is_int($optionkey)) {
+                          continue;
+                      }
+
+                      $all_option .= '<li class="list-group-item option-list"><input type="text" class="form-control" name="elegant_form[options]['.$key.'][]" value="'. $option_value .'" readonly=""><button type="button" class="btn-close option-close" aria-label="Close"></button></li>';
                     }
                     $dynamic_option = '<div class="dynamic_option"><div class="dynamic_select"><ul class="list-group dynamic-list-option">'. $all_option .'</ul></div><div class="add_option"><input type="text" id="single_option" class="form-control"> <button class="btn btn-primary add_option_button" type="button">Add Option</button> </div></div>';
 
                   }
 
-                  $single_field .= '<div class="bg-light inner-form-group border p-4 single_block"> <div class="row"><div class="col-md-6"><label class="form-label">Label Name</label><input type="text" class="form-control" id="field_name" name="elegant_form[field_name][]" value="'. $key .'" placeholder="Field Name" required=""></div> <div class="col-md-6"><label class="form-label">Field Type</label><select name="elegant_form[field_type][]" class="form-select field_type"><option value="input" '. (($value == 'input') ? 'selected' : '') .' >text-field</option><option value="checkbox" '. (($value == 'checkbox') ? 'selected' : '') .' >check-box</option><option value="text-area" '. (($value == 'text-area') ? 'selected' : '') .' >text-area</option><option value="dropdown" '. (is_array($value) && $value['type'] == 'dropdown' ? 'selected' : '') .' >dropdown</option></select>'. $dynamic_option .'</div></div><input data-id="2" type="button" class="btn btn-danger remove-input" value="-"></div>';
+                  $single_field .= '<div class="bg-light inner-form-group border p-4 single_block"> <div class="row"><div class="col-md-6"><label class="form-label">Label Name</label><input type="text" class="form-control" id="field_name" name="elegant_form[field_name][]" value="'. $key .'" placeholder="Field Name" required=""></div> <div class="col-md-6"><label class="form-label">Field Type</label><select name="elegant_form[field_type][]" class="form-select field_type"><option value="input" '. (($value == 'input') ? 'selected' : '') .' >text-field</option><option value="checkbox" '. (($value == 'checkbox') ? 'selected' : '') .' >check-box</option><option value="text-area" '. (($value == 'text-area') ? 'selected' : '') .' >text-area</option><option value="dropdown" '. (is_array($value) && $value['type'] == 'dropdown' ? 'selected' : '') .' >dropdown</option><option value="file" '. (($value == 'file') ? 'selected' : '') .' >file</option></select>'. $dynamic_option .'</div></div><input data-id="2" type="button" class="btn btn-danger remove-input" value="-"></div>';
 
                   
                 }

@@ -27,7 +27,7 @@
         <h3><?php //echo $form_title; ?></h3>
     </div>
     <div class="elegant-form-body">
-        <form action="" id="elegant-form" action="#" method="post" data-url="<?php echo admin_url( 'admin-ajax.php' ); ?>" >
+        <form  class="dropzone" action="" id="elegant-form" method="post" data-url="<?php echo admin_url( 'admin-ajax.php' ); ?>" enctype='multipart/form-data' >
             <?php
                 foreach ($main_form as $key => $value) {
                     $field_key = strtolower(str_replace(' ','_',$key));
@@ -54,6 +54,11 @@
                         case 'checkbox':
                             echo '<div class="elegant-form-input-wrap div-checkbox"><input type="checkbox" id="'. $field_key .'" name="'. $field_key .'" class="input-text-checkbox" /><label class="checkbox-label" for="'.$field_key.'">'. $key .'</label></div>';
                             break;
+
+                        case 'file':
+                            echo '<div id="dropzoneDragArea" class="dz-default dz-message dropzoneDragArea">
+                  				<span>Upload file</span></div><div id="dropzone-previews"></div>';
+                            break;
                         
                         default:
                             break;
@@ -68,7 +73,7 @@
 
             <?php } ?>
 
-            <button class="red" type="submit">SEND</button>
+            <button class="red" id="sendBtn" type="submit">SEND</button>
 
         </form>
     </div>

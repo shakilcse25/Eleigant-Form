@@ -52,27 +52,11 @@ class Elegant_Form_Admin_Callback{
         }
         
 
-        // die();
-
         $combine_array = array_combine($input['field_name'],$input['field_type']);
         $combine_array['form-id'] = ($update) ? $fileter_form['form-id'] : md5(uniqid(rand(), true));
         $combine_array['bg'] = $input['bg'];
         $combine_array['text_color'] = $input['text_color'];
         $options = isset($input['options']) ? $input['options'] : array();
-
-        echo '<pre>';
-        print_r($input);
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($combine_array);
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($options);
-        echo '</pre>';
-
-        die();
 
         foreach ($combine_array as $key => $value) {
             if($value == 'dropdown' && array_key_exists($key,$options)){
@@ -80,6 +64,7 @@ class Elegant_Form_Admin_Callback{
                 $combine_array[$key] = $options[$key];
             }
         }
+
         $output[$input['form_name']] =  $combine_array;
         return $output;
     }

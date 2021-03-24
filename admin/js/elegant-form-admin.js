@@ -29,17 +29,17 @@ $(document).ready(function() {
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	var i = 0;
+	 $( "#sortable" ).sortable();
+	 $( "#sortable" ).disableSelection();
+
 	jQuery("#add").on('click',function() {
-		i++;
-		var removeButton = "<input data-id=\""+ i +"\" type=\"button\" class=\"btn btn-danger remove-input\" value=\"-\" />";
-        var single_field = $('<div id="single_field'+ i +'" class="bg-light inner-form-group border p-4"> <div class="row"><div class="col-md-6"><label for="validationCustom01'+ i +'" class="form-label">Label Name</label><input type="text" class="form-control" id="field_name" name="elegant_form[field_name][]" value="" placeholder="Field Name" required=""></div> <div class="col-md-6"><label for="validationCustom02'+ i +'" class="form-label">Field Type</label><select name="elegant_form[field_type][]" class="form-select field_type validationCustom02'+ i +'"><option value="input">Text Field</option><option value="checkbox">CheckBox</option><option value="text-area">Text Area</option><option value="dropdown">DropDown</option></select></select></div></div>'+ removeButton +'</div>');
+		var removeButton = "<input type=\"button\" class=\"btn btn-danger remove-input\" value=\"-\" />";
+        var single_field = $('<div class="bg-light inner-form-group border p-4 single_block"> <div class="row"><div class="col-md-6"><label for="validationCustom01" class="form-label">Label Name</label><input type="text" class="form-control" id="field_name" name="elegant_form[field_name][]" value="" placeholder="Field Name" required=""></div> <div class="col-md-6"><label for="validationCustom02" class="form-label">Field Type</label><select name="elegant_form[field_type][]" class="form-select field_type validationCustom02"><option value="input">text-field</option><option value="checkbox">check-box</option><option value="text-area">text-area</option><option value="dropdown">dropdown</option></select></select></div></div>'+ removeButton +'</div>');
         $('.form_group').append(single_field);
     });
 
 	$(document).on('click','.remove-input',function() {
-		var id = $(this).attr('data-id');
-		$('#single_field' + id).remove();
+		$(this).parent().remove();
 	})
 
 	$(document).on('change','.field_type',function() {

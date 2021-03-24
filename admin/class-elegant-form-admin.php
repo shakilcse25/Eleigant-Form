@@ -166,6 +166,7 @@ class Elegant_Form_Admin {
 
 		if(in_array($page,$valid_page)){
 			wp_enqueue_style( 'elegan-plugin-bootstrap-css', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name.'-jquery-ui-css', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version, 'all' );
 		}
 
 	}
@@ -196,6 +197,7 @@ class Elegant_Form_Admin {
 
 		if(in_array($page,$valid_page)){
 			wp_enqueue_script( 'elegant-form-bootstrap-js-support', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array('jquery'), $this->version, false );
+			wp_enqueue_script( $this->plugin_name.'-jquery-ui-support', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array('jquery'), $this->version, false );
 		}
 
 	}

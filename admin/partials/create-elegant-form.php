@@ -19,7 +19,7 @@
             <?php 
                 settings_fields( 'elegant_form_settings' );
                 do_settings_sections( 'elegant_form' );
-                echo '<div class="form_group"></div>';
+                echo '<div class="form_group" id="sortable" ></div>';
                 echo '<p class="addBtn"><button class="btn btn-info add" type="button" id="add" >Add a Field</button></p>';
                 submit_button();
             ?>

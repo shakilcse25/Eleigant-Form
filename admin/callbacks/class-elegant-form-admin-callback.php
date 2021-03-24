@@ -13,15 +13,15 @@
 class Elegant_Form_Admin_Callback{
 
     public function pageRender(){
-        $id = (isset($_GET['id'])) ? $_GET['id'] : '';
         $page = (isset($_GET['page'])) ? $_GET['page'] : '';
+        $action = (isset($_GET['action'])) ? $_GET['action'] : '';
 
         $file = '';
         if(!empty($page)){
-            if(empty($id)){
+            if(empty($action)){
                 $file = ELEGANT_FORM_DIR_PATH.'admin/partials/'.$page.'.php';
             }else{
-                $file = ELEGANT_FORM_DIR_PATH.'admin/partials/'.$page.'-id.php';
+                $file = ELEGANT_FORM_DIR_PATH.'admin/partials/'.$page.'-'.$action.'.php';
             }
         }
         ob_start();
@@ -37,12 +37,42 @@ class Elegant_Form_Admin_Callback{
     }
 
     public function efSanitize($input){
-        $output = get_option( 'elegant_form' );
+        $output = get_option('elegant_form');
+        $fileter_form = array();
+        $update = false;
+
+        if(isset($_POST['method']) && $_POST['method'] == 'update'){
+            foreach($output as $key => $value){
+                if($key = $input['form_name']){
+                    $fileter_form = $value;
+                    $update = true;
+                    break;
+                }
+            }
+        }
+        
+
+        // die();
+
         $combine_array = array_combine($input['field_name'],$input['field_type']);
-        $combine_array['form-id'] = md5(uniqid(rand(), true));
+        $combine_array['form-id'] = ($update) ? $fileter_form['form-id'] : md5(uniqid(rand(), true));
         $combine_array['bg'] = $input['bg'];
         $combine_array['text_color'] = $input['text_color'];
         $options = isset($input['options']) ? $input['options'] : array();
+
+        echo '<pre>';
+        print_r($input);
+        echo '</pre>';
+
+        echo '<pre>';
+        print_r($combine_array);
+        echo '</pre>';
+
+        echo '<pre>';
+        print_r($options);
+        echo '</pre>';
+
+        die();
 
         foreach ($combine_array as $key => $value) {
             if($value == 'dropdown' && array_key_exists($key,$options)){
@@ -59,11 +89,8 @@ class Elegant_Form_Admin_Callback{
         $option_name = $args['option_name'];
         $value = '';
         $type = 'text';
-		$isArray = false;
-		if($name == 'field_name' || $name == 'field_type'){
-			$isArray = true;
-		}
-        $arr = ($isArray) ? '[]' : '';
+        $readonly = '';
+
         
         switch ($name) {
             case 'bg':
@@ -76,7 +103,27 @@ class Elegant_Form_Admin_Callback{
                 break;
         }
 
-        echo '<input type="'.$type.'" class="form-control input-field" id="'.$name.'" name="'.$option_name.'['.$name.']'.$arr.'" value="'.$value.'" placeholder="'. $args['placeholder'] .'" required>';
+
+        if(isset($_GET['action']) && $_GET['action'] == 'update'){
+            $form = get_option( 'elegant_form' );
+            $id = isset($_GET['id']) ? $_GET['id'] : '';
+            foreach ($form as $key => $formvalue) {
+                if($formvalue['form-id'] == $id){
+                    if($name == 'form_name'){
+                        $value = $key;
+                        $readonly = 'readonly';
+                    }else{
+                        foreach ($formvalue as $fieldkey=>$fieldvalue) {
+                            if($fieldkey == $name){
+                                $value = $fieldvalue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        echo '<input type="'.$type.'" '. $readonly .' class="form-control input-field" id="'.$name.'" name="'.$option_name.'['.$name.']" value="'.$value.'" placeholder="'. $args['placeholder'] .'" required>';
     }
 
     // public function checkboxField($args){
@@ -96,23 +143,23 @@ class Elegant_Form_Admin_Callback{
     // }
 
 
-    public function dropDownField($args){
-        $name = $args['label_for'];
-        $class = $args['class'];
-        $option_name = $args['option_name'];
-        $checkbox = get_option($option_name);
-        $checked = false;
-        $isArray = false;
-		if($name == 'field_name' || $name == 'field_type'){
-			$isArray = true;
-		}
-        $arr = ($isArray) ? '[[]]' : '';
+    // public function dropDownField($args){
+    //     $name = $args['label_for'];
+    //     $class = $args['class'];
+    //     $option_name = $args['option_name'];
+    //     $checkbox = get_option($option_name);
+    //     $checked = false;
+    //     $isArray = false;
+	// 	if($name == 'field_name' || $name == 'field_type'){
+	// 		$isArray = true;
+	// 	}
+    //     $arr = ($isArray) ? '[[]]' : '';
 
-        // if(isset($_POST['edit_post'])){
-        //     $value = (isset($checkbox[$_POST['edit_post']][$name])) ? $checkbox[$_POST['edit_post']][$name] : false;
-        //     $checked = ($value) ? true : false;
-        // }
-        echo '<select name="'.$option_name.'['.$name.']'.$arr.'" class="form-select field_type dropdown-field '.$class.'"><option value="input">Input Field</option><option value="checkbox">CheckBox</option><option value="text-area">Text Area</option><option value="dropdown">DropDown</option></select>';
-    }
+    //     // if(isset($_POST['edit_post'])){
+    //     //     $value = (isset($checkbox[$_POST['edit_post']][$name])) ? $checkbox[$_POST['edit_post']][$name] : false;
+    //     //     $checked = ($value) ? true : false;
+    //     // }
+    //     echo '<select name="'.$option_name.'['.$name.']'.$arr.'" class="form-select field_type dropdown-field '.$class.'"><option value="input">Input Field</option><option value="checkbox">CheckBox</option><option value="text-area">Text Area</option><option value="dropdown">DropDown</option></select>';
+    // }
 	
 }

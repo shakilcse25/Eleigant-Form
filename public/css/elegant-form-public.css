@@ -14,8 +14,7 @@
     font-size: 16px !important;
     border-radius: 320px !important;
     padding: 16px !important;
-    background-color: #EBECF0 !important;
-    text-shadow: 1px 1px 0 #FFF !important;
+    background: transparent !important;
 }
 .elegant-form-div .input-text-field, .elegant-form-div .input-text-select , .elegant-form-div .input-text-checkbox, .elegant-form-div .input-text-area{
     margin-right: 8px !important;
@@ -30,13 +29,12 @@
 .elegant-form-div button {
     display: block;
     width: 110px;
-    color: #AE1100;
     font-weight: bold;
     box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
     font-weight: 600;
-    background-color: #EBECF0 !important;
+    background: transparent !important;
     float: right;
 }
 .elegant-form-div button:hover , .elegant-form-div button:focus{
@@ -45,6 +43,10 @@
 }
 .elegant-form-div textarea{
     border-radius: 8px !important;
+}
+
+.notiflix-report-message{
+    text-align: center !important;
 }
 
 

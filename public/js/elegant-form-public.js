@@ -31,6 +31,7 @@ $(document).ready(function() {
 
 	$('#elegant-form').on('submit',function(e){
 		e.preventDefault();
+		Notiflix.Loading.Hourglass('Sending...');
 		var url = $(this).attr('data-url');
 		var allcheck = [];
 		$('#elegant-form .input-text-checkbox').each(function() {
@@ -41,9 +42,28 @@ $(document).ready(function() {
 			return obj;
 		}, {});
 
-		$.post(url, formData , function(response){
-			console.log(response);
-		})
+
+		$.ajax({
+			type: "POST",
+			url: url,
+			data:formData,
+			success: function(response){
+				//if request if made successfully then the response represent the data
+				console.log(response);
+				Notiflix.Loading.Remove();
+				if(response.status == 'success'){
+					Notiflix.Notify.Success('Sent Successfully!', {cssAnimationStyle:'zoom', cssAnimationDuration:500 , position: 'right-bottom'});
+				}else{
+					Notiflix.Report.Failure('Something Wrong!','<p style="text-align:center;">Please try again later.</p>', {cssAnimationStyle:'zoom', cssAnimationDuration:500 });
+				}
+			},
+			error: function(e) {
+				Notiflix.Loading.Remove();
+				console.log(e);
+				Notiflix.Report.Failure('Something Wrong!','<p style="text-align:center;">Please try again later.</p>', {cssAnimationStyle:'zoom', cssAnimationDuration:500 });
+			},
+
+		});
 
 	});
 

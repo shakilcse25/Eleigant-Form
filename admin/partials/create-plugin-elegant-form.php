@@ -111,14 +111,11 @@
         color: <?php echo $main_form['text_color']; ?>;
         opacity: 0.6;
     }
-    .input-text-select option{
-        color: <?php echo $main_form['text_color']; ?>;
-    }
-    .input-text-select option:first-child{
-        color: <?php echo $main_form['text_color']; ?>;
-    }
-    .input-text-field::placeholder{
+    .input-text-select option,.input-text-select option:first-child , .input-text-field::placeholder , .elegant-form-div button , .elegant-form-div input, .elegant-form-div select, .elegant-form-div button, .elegant-form-div textarea {
         color: <?php echo $main_form['text_color']; ?> !important;
+    }
+    .elegant-form-div .input-text-checkbox:checked{
+        background-color:  <?php echo $main_form['text_color']; ?> !important;
     }
 </style>
 

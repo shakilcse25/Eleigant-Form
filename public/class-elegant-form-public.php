@@ -74,6 +74,7 @@ class Elegant_Form_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/elegant-form-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-notiflex-css', plugin_dir_url( __FILE__ ) . 'css/notiflix-2.7.0.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -97,6 +98,7 @@ class Elegant_Form_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/elegant-form-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'-notiflex-js', plugin_dir_url( __FILE__ ) . 'js/notiflix-aio-2.7.0.min.js', array(), $this->version, false );
 
 	}
 

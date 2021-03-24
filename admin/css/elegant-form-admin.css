@@ -46,6 +46,7 @@ select {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .add_option {
@@ -100,4 +101,12 @@ select {
 .my-card .addBtn {
     text-align: right;
     margin: 30px 0;
+}
+.my-card form h2{
+    background-color: gainsboro;
+    padding: 10px 5px;
+    margin-bottom: 20px;
+}
+.single_block{
+    cursor:move;
 }

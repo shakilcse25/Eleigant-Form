@@ -103,6 +103,8 @@ class Elegant_Form_Public {
 		
 		wp_enqueue_script( $this->plugin_name.'-notiflex-js', plugin_dir_url( __FILE__ ) . 'js/notiflix-aio-2.7.0.min.js', array(), $this->version, false );
 
+		wp_enqueue_script( $this->plugin_name.'-captcha-js', plugin_dir_url( __FILE__ ) . 'js/captcha.js', array(), $this->version, false );
+
 
 	}
 

@@ -283,21 +283,23 @@ class Elegant_Form_Admin {
     }
 
 	public function elegant_form_submit(){
-		return wp_send_json( $_POST );
-
 
 		if (! DOING_AJAX || ! check_ajax_referer('elegant-and-form-nonce', 'nonce') ) {
 			return $this->return_json('error');
 		}
 
-		// if (!empty($_FILES)) {
-		// 	$tmpFile = $_FILES['file']['tmp_name'];
-		// 	$filename = $uploadDir.'/'.time().'-'. $_FILES['file']['name'];
-		// 	move_uploaded_file($tmpFile, $filename);
-		// }
-
-
-		
+		if (!empty($_FILES)) {
+			$dir = plugin_dir_path( dirname( __FILE__ )).'admin/uploads/';
+			$_POST['file'] = [];
+			foreach($_FILES['file']['tmp_name'] as $key => $value) {
+				$time = microtime(true);
+				$filename =  $time.$_FILES['file']['name'][$key];
+				$tempFile = $_FILES['file']['tmp_name'][$key];
+				$targetFile =  $dir.$filename;
+				move_uploaded_file($tempFile,$targetFile);
+				array_push($_POST['file'], $filename);
+			}
+		}
 
 		
 		$elegant_form_submit = get_option('elegant_form_submit');

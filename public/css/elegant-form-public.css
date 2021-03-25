@@ -3,6 +3,9 @@
  * included in this file.
  */
 
+ a{
+     text-decoration: none !important;
+ }
 .elegant-form-div {
     padding: 30px 20px !important;
     border-radius: 4px !important;
@@ -77,4 +80,108 @@
     border: none !important;
     background: transparent !important;
     padding: 10px 10px !important;
+}
+
+canvas{
+    /*prevent interaction with the canvas*/
+    pointer-events:none;
+}
+#cpatchaTextBox, .math-captcha{
+    margin-bottom: 20px;
+}
+.text-captcha{
+    display: flex;
+}
+.bi-arrow-repeat{
+    background-color: #fff;
+}
+.refresh{
+    cursor:pointer;
+}
+
+/* Rotate */
+
+.bi-arrow-repeat.active {
+    -webkit-animation-name: cycle;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: cycle;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    -moz-animation-name: cycle;
+    -moz-animation-duration: 2s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes cycle {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes cycle {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes cycle {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+
+/* Math Captcha */
+
+.rand1, .rand2
+{
+    margin: 25px 0;
+    float: left;
+    border-radius: 50% 50%;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.plus
+{
+    padding: 16px 0;
+    margin: 25px 7px;
+    float: left;
+}
+.text-captcha span{
+    margin-left: 10px;
+    cursor: pointer;
+}
+.re
+{
+    float: left;
+    cursor: pointer;
+    margin-top: 18px;
+    margin-left: 10px;
+}
+.captcha-svg canvas{
+    background: #fff;
+    padding: 0 10px;
+    border-radius: 6px;
+}
+.dropzone .dz-message{
+    margin-top: 0 !important;
+}
+.dropzoneDragArea{
+    background-color: transparent !important;
 }

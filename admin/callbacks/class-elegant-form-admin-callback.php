@@ -11,7 +11,12 @@
  */
 
 class Elegant_Form_Admin_Callback{
-
+    
+    /**
+     * This default page render callback. this return template based on value and parameter of page
+     *
+     * @return void
+     */
     public function pageRender(){
         $page = (isset($_GET['page'])) ? $_GET['page'] : '';
         $action = (isset($_GET['action'])) ? $_GET['action'] : '';
@@ -32,10 +37,21 @@ class Elegant_Form_Admin_Callback{
 		ob_end_clean();
 		echo $template;
     }
-
+	
+	/**
+	 * set section of create form section
+	 *
+	 * @return void
+	 */
 	public function efSectionManager(){
     }
-
+    
+    /**
+     * sanitize of all value and output the required format
+     *
+     * @param  mixed $input
+     * @return void
+     */
     public function efSanitize($input){
         $output = get_option('elegant_form');
         $fileter_form = array();
@@ -68,7 +84,13 @@ class Elegant_Form_Admin_Callback{
         $output[$input['form_name']] =  $combine_array;
         return $output;
     }
-
+    
+    /**
+     * structure of any text field of form
+     *
+     * @param  mixed $args
+     * @return void
+     */
     public function textField($args){
         $name = $args['label_for'];
         $option_name = $args['option_name'];
@@ -110,41 +132,5 @@ class Elegant_Form_Admin_Callback{
 
         echo '<input type="'.$type.'" '. $readonly .' class="form-control input-field" id="'.$name.'" name="'.$option_name.'['.$name.']" value="'.$value.'" placeholder="'. $args['placeholder'] .'" required>';
     }
-
-    // public function checkboxField($args){
-	// 	die();
-    //     $name = $args['label_for'];
-    //     $class = $args['class'];
-    //     $option_name = $args['option_name'];
-    //     $checkbox = get_option($option_name);
-    //     $checked = false;
-
-    //     if(isset($_POST['edit_post'])){
-    //         $value = (isset($checkbox[$_POST['edit_post']][$name])) ? $checkbox[$_POST['edit_post']][$name] : false;
-    //         $checked = ($value) ? true : false;
-    //     }
-
-    //     echo '<input type="checkbox" name="'.$option_name.'['.$name.']" value="1" class="'.$class.'" '. (($checked) ? 'checked' : '') .' />';
-    // }
-
-
-    // public function dropDownField($args){
-    //     $name = $args['label_for'];
-    //     $class = $args['class'];
-    //     $option_name = $args['option_name'];
-    //     $checkbox = get_option($option_name);
-    //     $checked = false;
-    //     $isArray = false;
-	// 	if($name == 'field_name' || $name == 'field_type'){
-	// 		$isArray = true;
-	// 	}
-    //     $arr = ($isArray) ? '[[]]' : '';
-
-    //     // if(isset($_POST['edit_post'])){
-    //     //     $value = (isset($checkbox[$_POST['edit_post']][$name])) ? $checkbox[$_POST['edit_post']][$name] : false;
-    //     //     $checked = ($value) ? true : false;
-    //     // }
-    //     echo '<select name="'.$option_name.'['.$name.']'.$arr.'" class="form-select field_type dropdown-field '.$class.'"><option value="input">Input Field</option><option value="checkbox">CheckBox</option><option value="text-area">Text Area</option><option value="dropdown">DropDown</option></select>';
-    // }
 	
 }

@@ -22,6 +22,8 @@
  */
 class Elegant_Form_Admin {
 
+
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -79,10 +81,23 @@ class Elegant_Form_Admin {
 		$this->settings_api->register();
 	}
 
+	
+	
+	/**
+	 * short code init for front-end form view
+	 *
+	 * @return void
+	 */
 	public function elegant_form_shortcodes_init(){
 		add_shortcode('elegant-form', array($this,'elegant_form_shortcode'));
 	}
-
+	
+	/**
+	 * short-code generation for front-end view
+	 *
+	 * @param  mixed $atts
+	 * @return void
+	 */
 	public function elegant_form_shortcode($atts=[]){
 		$params = shortcode_atts(
 			array(
@@ -99,7 +114,12 @@ class Elegant_Form_Admin {
         ob_end_clean();
         echo $template;
 	}
-
+	
+	/**
+	 * Check the initial required option is exist or not, if not exist, then will be created.
+	 *
+	 * @return void
+	 */
 	public function dbActivated(){
 		$default = array();
         if(!get_option('elegant_form')){
@@ -201,7 +221,12 @@ class Elegant_Form_Admin {
 		}
 
 	}
-
+	
+	/**
+	 * add required dashboard menu
+	 *
+	 * @return void
+	 */
 	public function admin_main_menu() {
 		add_menu_page( 'Manage Elegant Form', 'Elegant Form', 'manage_options', 'manage-elegant-form', array($this->callbacks,'pageRender'), 'dashicons-welcome-widgets-menus', 90 );
 
@@ -211,7 +236,12 @@ class Elegant_Form_Admin {
 	}
 
 
-
+	
+	/**
+	 * set settings of create form page using settings api
+	 *
+	 * @return void
+	 */
 	public function setSettings(){
         $args = array(
 			array(
@@ -223,7 +253,12 @@ class Elegant_Form_Admin {
 
         $this->settings_api->setSettings($args);
     }
-
+    
+    /**
+     * set sections of create form page using settings api
+     *
+     * @return void
+     */
     public function setSections(){
         $args = array(
             array(
@@ -235,7 +270,12 @@ class Elegant_Form_Admin {
         );
         $this->settings_api->setSections($args);
     }
-
+    
+    /**
+     * set required fields of create form page using settings api
+     *
+     * @return void
+     */
     public function setFields(){
 
         $args = array(
@@ -281,7 +321,12 @@ class Elegant_Form_Admin {
 
         $this->settings_api->setFields($args);
     }
-
+	
+	/**
+	 * ajax form submit from front end then this action is triggered. 
+	 *
+	 * @return void
+	 */
 	public function elegant_form_submit(){
 
 		if (! DOING_AJAX || ! check_ajax_referer('elegant-and-form-nonce', 'nonce') ) {
@@ -314,7 +359,13 @@ class Elegant_Form_Admin {
 		return $this->return_json('error');
 
 	}
-
+	
+	/**
+	 * format return json
+	 *
+	 * @param  mixed $status
+	 * @return void
+	 */
 	public function return_json($status)
 	{
 		$return = array(

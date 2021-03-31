@@ -29,3 +29,11 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+if(get_option('elegant_form')){
+	delete_option( 'elegant_form' );
+}
+
+if(get_option('elegant_form_submit')){
+	delete_option( 'elegant_form_submit' );
+}
